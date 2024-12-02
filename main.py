@@ -27,21 +27,25 @@ message.attach(MIMEText(html, "html"))
 @app.post("/send_ticket")
 async def sd_email(ticket: Ticket):
     
-    # html = """<p>Привет! Номер тикета 44</p> """
-    # message = MessageSchema(
-    #     subject="Пересылка инцидента",
-    #     recipients=['win1887@yandex.ru'],
-    #     body=html,
-    #     subtype=MessageType.html)
-    # fm = FastMail(mail_conf)
-    # await fm.send_message(message)
-    
+    html = """<p>Привет! Номер тикета 44</p> """
+    message = MessageSchema(
+        subject="Пересылка инцидента",
+        recipients=['win1887@yandex.ru'],
+        body=html,
+        subtype=MessageType.html)
+    fm = FastMail(mail_conf)
     try:
-        with smtplib.SMTP(MAIL_SERVER, MAIL_PORT) as server:
-            server.login(MAIL_USERNAME, MAIL_PASSWORD)
-            server.send_message(message)
-        print("Письмо успешно отправлено")
+        await fm.send_message(message)
+        print('Письмо успешно отправлено.')
     except Exception as e:
         print(f"Ошибка при отправке письма: {e}")
+    
+    # try:
+    #     with smtplib.SMTP(MAIL_SERVER, MAIL_PORT) as server:
+    #         server.login(MAIL_USERNAME, MAIL_PASSWORD)
+    #         server.send_message(message)
+    #     print("Письмо успешно отправлено")
+    # except Exception as e:
+    #     print(f"Ошибка при отправке письма: {e}")
     template_context = get_template_context(ticket)
     return JSONResponse(status_code=200, content=template_context)

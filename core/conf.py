@@ -28,6 +28,6 @@ mail_conf = ConnectionConfig(
     MAIL_FROM=MAIL_FROM,
     MAIL_PORT=MAIL_PORT,
     MAIL_SERVER=MAIL_SERVER,
-    MAIL_STARTTLS=True,
+    MAIL_STARTTLS=False,
     MAIL_SSL_TLS=False,
 )

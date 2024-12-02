@@ -1,6 +1,4 @@
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+from pathlib import Path
 from dotenv import load_dotenv
 import os
 from fastapi_mail import ConnectionConfig
@@ -9,10 +7,10 @@ from zammad_py import ZammadAPI
 load_dotenv()
 
 MAIL_USERNAME = os.getenv('MAIL_USERNAME')
-MAIL_PASSWORD=os.getenv('MAIL_PASSWORD')
-MAIL_PORT=587
-MAIL_SERVER='mail.hprspc.com'
-MAIL_FROM='sd_test@api-factory.ru'
+MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
+MAIL_PORT = int(os.getenv('MAIL_PORT'))
+MAIL_SERVER = os.getenv('MAIL_SERVER')
+MAIL_FROM = os.getenv('MAIL_FROM')
 
 
 zammad_client = ZammadAPI(
@@ -20,8 +18,6 @@ zammad_client = ZammadAPI(
     username=os.getenv('ZAMMAD_USERNAME'),
     password=os.getenv('ZAMMAD_PASSWORD')
 )
-
-
 mail_conf = ConnectionConfig(
     MAIL_USERNAME=MAIL_USERNAME,
     MAIL_PASSWORD=MAIL_PASSWORD,
@@ -30,4 +26,5 @@ mail_conf = ConnectionConfig(
     MAIL_SERVER=MAIL_SERVER,
     MAIL_STARTTLS=False,
     MAIL_SSL_TLS=False,
+    TEMPLATE_FOLDER=Path(__file__).parent / 'templates'
 )

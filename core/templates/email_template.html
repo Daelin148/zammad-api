@@ -9,10 +9,10 @@
 
     <main>
         <p>Уважаемые коллеги, исходя из содержимого заявки, мы предполагаем, что она предназначается вам.</p>
-        <p>Номер заявки: {{ ticker.number }}</p>
+        <p>Номер заявки: {{ ticket.number }}</p>
         <p>Тема: {{ ticket.title }}</p>
         <p>Описание: {{ ticket.description }}</p>
-        <p>Отправитель: {{ ticker.author }}</p>
+        <p>Отправитель: {{ ticket.author }}</p>
         <p>Дата создания: {{ ticket.created_at }}</p>
         <p>Список комментариев:</p>
         {% for article in articles %}

@@ -1,4 +1,5 @@
 import os
+import re
 from typing import Any
 
 from dotenv import load_dotenv
@@ -17,7 +18,12 @@ def get_articles_data(articles):
                 'id': article['id'],
                 'author': article['from'],
                 'created_at': article['created_at'],
-                'text': article['body'],
+                'text': re.sub(
+                    r'<[^>]+>',
+                    '',
+                    article['body'],
+                    flags=re.S
+                ),
             }
         )
     return articles_data
@@ -28,7 +34,7 @@ def get_description_from_articles(articles: list[dict[str, Any]]):
         key=lambda article: int(article['id']),
         reverse=True
     )
-    return sorted_articles.pop()
+    return sorted_articles.pop()['text']
 
 def get_template_context(ticket: Ticket):
     articles = zammad_client.ticket.articles(ticket.id)

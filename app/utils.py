@@ -1,9 +1,11 @@
 import os
-from dotenv import load_dotenv
 from typing import Any
-from core.conf import zammad_client
-from .schemas import Ticket
 
+from dotenv import load_dotenv
+
+from core.conf import zammad_client
+
+from .schemas import Ticket
 
 load_dotenv()
 

@@ -1,6 +1,7 @@
-from pathlib import Path
-from dotenv import load_dotenv
 import os
+from pathlib import Path
+
+from dotenv import load_dotenv
 from fastapi_mail import ConnectionConfig
 from zammad_py import ZammadAPI
 

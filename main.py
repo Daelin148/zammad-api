@@ -1,10 +1,10 @@
 from fastapi import FastAPI
-from starlette.responses import JSONResponse
-from core.conf import mail_conf
 from fastapi_mail import FastMail, MessageSchema, MessageType
-from app.schemas import Ticket
-from app.utils import get_template_context, check_token
+from starlette.responses import JSONResponse
 
+from app.schemas import Ticket
+from app.utils import check_token, get_template_context
+from core.conf import mail_conf
 
 app = FastAPI()
 
@@ -23,7 +23,7 @@ async def sd_email(ticket: Ticket):
         subtype=MessageType.html)
     fm = FastMail(mail_conf)
     try:
-        await fm.send_message(message, template_name='email_template')
+        await fm.send_message(message, template_name='email_template.html')
     except Exception as e:
         return JSONResponse(
             status_code=500,

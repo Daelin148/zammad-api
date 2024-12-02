@@ -38,7 +38,6 @@ async def sd_email(ticket: Ticket):
     
     try:
         with smtplib.SMTP(MAIL_SERVER, MAIL_PORT) as server:
-            server.starttls()
             server.login(MAIL_USERNAME, MAIL_PASSWORD)
             server.send_message(message)
         print("Письмо успешно отправлено")

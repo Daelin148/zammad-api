@@ -16,6 +16,7 @@ def get_articles_data(articles):
 
 def get_template_context(ticket: Ticket):
     articles = zammad_client.ticket.articles(ticket.id)
+    ticket_data = ticket.model_dump()
     template_context = {
         'ticket': ticket.model_dump(),
         'articles': get_articles_data(articles)

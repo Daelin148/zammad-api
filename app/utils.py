@@ -13,8 +13,7 @@ load_dotenv()
 def get_articles_data(articles):
     articles_data = list()
     for article in articles:
-        print(article['internal'])
-        if article['internal'] == 'true':
+        if article['internal']:
             continue
         articles_data.append(
             {

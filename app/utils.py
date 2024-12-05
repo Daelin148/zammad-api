@@ -10,6 +10,7 @@ from .schemas import Ticket
 
 load_dotenv()
 
+
 def get_articles_data(articles):
     articles_data = list()
     for article in articles:
@@ -28,6 +29,7 @@ def get_articles_data(articles):
         )
     return articles_data
 
+
 def get_description_from_articles(articles: list[dict[str, Any]]):
     sorted_articles = sorted(
         articles,
@@ -35,6 +37,7 @@ def get_description_from_articles(articles: list[dict[str, Any]]):
         reverse=True
     )
     return sorted_articles.pop()['text']
+
 
 def get_template_context(ticket: Ticket):
     articles = zammad_client.ticket.articles(ticket.id)

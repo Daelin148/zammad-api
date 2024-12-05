@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
+    <style>
+      table {
+          border-collapse: collapse;
+          width: 100%;
+      }
+
+      th, td {
+          padding: 8px;
+      }
+
+      tr:nth-child(even) {
+          background-color: #f2f2f2;
+      }
+    </style>
   </head>
   <body>
     <header>
-        <h1>{{ ticket.title }}</h1>
+        <h1>Пересылка инцидента {{ ticket.title }}</h1>
     </header>
 
     <main>
@@ -19,6 +33,22 @@
         <p>Дата: {{ article.created_at }}</p>
         <p>Содержание: {{ article.text }}</p>
         {% endfor %}
+        <table id="messages">
+          <thead>
+            <tr>
+              <th>Автор</th>
+              <th>Время</th>
+              <th>Текст</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for article in articles %}
+              <th>{{ article.author }}</th>
+              <th>{{ article.created_at }}</th>
+              <th>{{ article.text }}</th>
+            {% endfor %}
+          </tbody>
+        </table>
     </main>
 
     <footer>

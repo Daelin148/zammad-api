@@ -8,6 +8,7 @@ from core.conf import mail_conf
 
 app = FastAPI()
 
+
 @app.post("/send_ticket")
 async def sd_email(ticket: Ticket):
     if not check_token(ticket.autorization):

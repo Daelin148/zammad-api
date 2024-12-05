@@ -36,7 +36,7 @@ def get_template_context(ticket: Ticket):
     articles.sort(
         key=lambda article: int(article['id'])
     )
-    ticket_data['description'] = articles.pop(0)['body']
+    ticket_data['description'] = articles.pop(0)['text']
     template_context = {
         'ticket': ticket_data,
         'articles': articles

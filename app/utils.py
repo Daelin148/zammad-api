@@ -1,6 +1,5 @@
 import os
 import re
-from typing import Any
 
 from dotenv import load_dotenv
 
@@ -33,7 +32,8 @@ def get_articles_data(articles):
 def get_template_context(ticket: Ticket):
     articles = zammad_client.ticket.articles(ticket.id)
     ticket_data = ticket.model_dump()
-    articles = get_articles_data(articles).sort(
+    articles = get_articles_data(articles)
+    articles.sort(
         key=lambda article: int(article['id'])
     )
     ticket_data['description'] = articles.pop(0)['body']

@@ -1,11 +1,15 @@
+import os
+
 from fastapi import FastAPI
 from fastapi_mail import FastMail, MessageSchema, MessageType
 from starlette.responses import JSONResponse
+from dotenv import load_dotenv
 
 from app.schemas import Ticket
 from app.utils import check_token, get_template_context
 from core.conf import mail_conf
 
+load_dotenv()
 app = FastAPI()
 
 
@@ -19,7 +23,7 @@ async def sd_email(ticket: Ticket):
     template_context = get_template_context(ticket)
     message = MessageSchema(
         subject="Пересылка инцидента",
-        recipients=['win1887@yandex.ru'],
+        recipients=[os.getenv('SD_MAIL')],
         template_body=template_context,
         subtype=MessageType.html)
     fm = FastMail(mail_conf)

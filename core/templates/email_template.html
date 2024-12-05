@@ -1,20 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <style>
-      table {
-          border-collapse: collapse;
-          width: 100%;
-      }
-
-      th, td {
-          padding: 8px;
-      }
-
-      tr:nth-child(even) {
-          background-color: #f2f2f2;
-      }
-    </style>
   </head>
   <body>
     <header>
@@ -23,17 +9,12 @@
 
     <main>
         <p>Уважаемые коллеги, исходя из содержимого заявки, мы предполагаем, что она предназначается вам.</p>
-        <p>Номер заявки: {{ ticket.number }}</p>
-        <p>Описание: {{ ticket.description }}</p>
-        <p>Отправитель: {{ ticket.author }}</p>
-        <p>Дата создания: {{ ticket.created_at }}</p>
-        <p>Список комментариев:</p>
-        {% for article in articles %}
-        <p>Автор комментария: {{ article.author }}</p>
-        <p>Дата: {{ article.created_at }}</p>
-        <p>Содержание: {{ article.text }}</p>
-        {% endfor %}
-        <table id="messages">
+        <p><b>Номер заявки:</b> {{ ticket.number }}</p>
+        <p><b>Описание:</b> <i>{{ ticket.description }}</i></p>
+        <p><b>Отправитель:</b> {{ ticket.author }}</p>
+        <p><b>Дата создания:</b> {{ ticket.created_at }}</p>
+        <p><b>Список комментариев:</b></p>
+        <table>
           <thead>
             <tr>
               <th>Автор</th>
@@ -43,9 +24,11 @@
           </thead>
           <tbody>
             {% for article in articles %}
-              <th>{{ article.author }}</th>
-              <th>{{ article.created_at }}</th>
-              <th>{{ article.text }}</th>
+              <tr>
+                <th>{{ article.author }}</th>
+                <th>{{ article.created_at }}</th>
+                <th>{{ article.text }}</th>
+              </tr>
             {% endfor %}
           </tbody>
         </table>

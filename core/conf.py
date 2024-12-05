@@ -16,6 +16,8 @@ MAIL_FROM = os.getenv('MAIL_FROM')
 
 zammad_client = ZammadAPI(
     url=os.getenv('ZAMMAD_URL'),
+    username=os.getenv('ZAMMAD_USERNAME'),
+    password=os.getenv('ZAMMAD_PASSWORD'),
     http_token=os.getenv('ZAMMAD_TOKEN')
 )
 mail_conf = ConnectionConfig(

@@ -21,22 +21,21 @@ async def sd_email(ticket: Ticket):
             content={'message': 'invalid token'}
         )
     template_context, attachments = get_template_context(ticket)
-    print(attachments)
-    # message = MessageSchema(
-    #     subject="Пересылка инцидента",
-    #     recipients=[os.getenv('SD_MAIL')],
-    #     template_body=template_context,
-    #     subtype=MessageType.html,
-    #     attachments=attachments
-    # ),
-    # fm = FastMail(mail_conf)
-    # try:
-    #     await fm.send_message(message, template_name='email_template.html')
-    # except Exception as e:
-    #     return JSONResponse(
-    #         status_code=500,
-    #         content={'message': f'Ошибка при отправке письма {e}'}
-    #     )
+    message = MessageSchema(
+        subject="Пересылка инцидента",
+        recipients=[os.getenv('SD_MAIL')],
+        template_body=template_context,
+        subtype=MessageType.html,
+        attachments=attachments
+    ),
+    fm = FastMail(mail_conf)
+    try:
+        await fm.send_message(message, template_name='email_template.html')
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={'message': f'Ошибка при отправке письма {e}'}
+        )
     return JSONResponse(
         status_code=200,
         content={'message': 'Письмо успешно отправлено.'}

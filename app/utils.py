@@ -1,7 +1,7 @@
 import os
 import re
 from io import BytesIO
-from starlette.datastructures import UploadFile
+from starlette.datastructures import UploadFile, Headers
 from dotenv import load_dotenv
 from starlette.responses import JSONResponse
 
@@ -48,7 +48,9 @@ def download_attachments(ticket_id, attachments):
             UploadFile(
                 file=upload_file,
                 filename=attachment['filename'],
-                content_type=attachment['preferences']['Content-Type']
+                headers=Headers(
+                    {'content_type': attachment['preferences']['Content-Type']}
+                ),
             )
         )
     return serialized_attachments
@@ -79,7 +81,3 @@ def get_template_context(ticket: Ticket):
 
 def check_token(token: str):
     return token == os.getenv('AUTH_TOKEN')
-
-
-file = BytesIO()
-print(isinstance(file, ))

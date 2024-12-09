@@ -28,6 +28,7 @@ async def sd_email(ticket: Ticket):
         subtype=MessageType.html,
         attachments=attachments
     ),
+    print(attachments)
     fm = FastMail(mail_conf)
     try:
         await fm.send_message(message, template_name='email_template.html')

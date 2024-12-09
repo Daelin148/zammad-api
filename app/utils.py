@@ -1,6 +1,7 @@
 import os
 import re
-
+from io import BytesIO
+from starlette.datastructures import UploadFile
 from dotenv import load_dotenv
 from starlette.responses import JSONResponse
 
@@ -39,15 +40,17 @@ def get_articles_data(articles):
 def download_attachments(ticket_id, attachments):
     serialized_attachments = list()
     for article_id, attachment in attachments:
-        attachment_data = zammad_client.ticket_article_attachment.download(
+        attachment_bin = zammad_client.ticket_article_attachment.download(
             attachment['id'], article_id, ticket_id
         )
-        attach = {
-            'filename': attachment['filename'],
-            'content': attachment_data,
-            'type': attachment['preferences']['Content-Type']
-        }
-        serialized_attachments.append(attach)
+        upload_file = BytesIO(attachment_bin)
+        serialized_attachments.append(
+            UploadFile(
+                file=upload_file,
+                filename=attachment['filename'],
+                content_type=attachment['preferences']['Content-Type']
+            )
+        )
     return serialized_attachments
 
 
@@ -76,3 +79,7 @@ def get_template_context(ticket: Ticket):
 
 def check_token(token: str):
     return token == os.getenv('AUTH_TOKEN')
+
+
+file = BytesIO()
+print(isinstance(file, ))
